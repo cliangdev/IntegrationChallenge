@@ -15,8 +15,8 @@ public class SubscriptionController {
 	private final static String CANCEL = "cancel";
 	private final static String SSO = "sso";
 
-	//appdirectintegration.cloudfoundry.com/subscription?action=create&token={token}
-	//appdirectintegration.cloudfoundry.com/subscription?action=cancel&token={token}
+	//appdirectintegration.cloudfoundry.com/cliang/subscription?action=create&token={token}
+	//appdirectintegration.cloudfoundry.com/cliang/subscription?action=cancel&token={token}
 	@RequestMapping(value = "/subscription", method = RequestMethod.GET)
 	public @ResponseBody String subscripe(@RequestParam("action") String action, 
 				@RequestParam(value="token", defaultValue="") String token,
@@ -27,12 +27,6 @@ public class SubscriptionController {
 			Events e = new Events();
 			xml = e.FectchEvent(token);
 			xml = e.handleEvent(new EventXML(xml));
-		} else if (SSO.equals(action)) {
-			//acctid: cliangdev@gmail.com
-			//openid: https://www.appdirect.com/openid/id/fa063459-cc4c-43e6-9c6a-508193cbf1e3
-			// redirect user to a register screen
-			xml = "<test>" + acctid + ", " + openid + "</test>";
-			
 		}
 
 		return xml;

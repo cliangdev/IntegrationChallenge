@@ -71,6 +71,10 @@ public class Events {
 			return createOrder(eventXML);
 		} else if (eventType.equals(Events.SUBSCRIPTION_CANCEL)) {
 			return cancelOrder(eventXML);
+		} else if (eventType.equals(Events.USER_ASSIGNMENT)) {
+			return assignUser(eventXML);
+		} else if (eventType.equals(Events.USER_UNASSIGNMENT)) {
+			return unassignUser(eventXML);
 		}
 		return "Err unknown event type: "+ eventType;
 	}
@@ -87,5 +91,25 @@ public class Events {
 		String id = eventXML.getEmail();
 		return String.format("<result><success>%b</success><accountIdentifier>%s</accountIdentifier></result>", 
 					success, id);
+	}
+	
+	private String assignUser(EventXML eventXML) {
+		boolean success = true;
+		String id = eventXML.getEmail();
+		String sub = eventXML.getSubscription();
+		
+		// if id not found, return err message
+		// TODO: add user info to the database
+		
+		return "<result><success>true</success></result>";
+	}
+	
+	private String unassignUser(EventXML eventXML) {
+		String id = eventXML.getEmail();
+		String sub = eventXML.getSubscription();
+		
+		// if id not found, return err message
+		
+		return "<result><success>true</success></result>";
 	}
 }

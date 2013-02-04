@@ -15,6 +15,7 @@ import org.xml.sax.SAXException;
 public class EventXML {
 	private String event_type = "";
 	private String email = "";
+	private String subscrition = "";
 
 	public EventXML(String xml) {
 		parse(xml);
@@ -54,5 +55,9 @@ public class EventXML {
 	
 	public String getEventType() {
 		return event_type;
+	}
+
+	public String getSubscription() {
+		return subscrition;
 	}
 }
