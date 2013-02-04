@@ -36,11 +36,11 @@ public class EventXML {
 			nList = doc.getElementsByTagName("type");
 			if (nList.getLength() >= 1) event_type = nList.item(0).getTextContent();
 		} catch (ParserConfigurationException ignore) {
-			ignore.printStackTrace();
+			//ignore.printStackTrace();
 		} catch (SAXException ignore) {
-			ignore.printStackTrace();
+			//ignore.printStackTrace();
 		} catch (IOException ignore) {
-			ignore.printStackTrace();
+			//ignore.printStackTrace();
 		}  finally {
 			if (reader != null){
 				reader.close();

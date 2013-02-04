@@ -7,4 +7,6 @@ WebApp url:
 - http://appdirectintegration.cloudfoundry.com
 
 Implemented integration feature:
-- App subscription
+- Create subscription
+- Cancel subscription
+- Single sign on

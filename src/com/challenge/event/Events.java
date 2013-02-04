@@ -69,14 +69,23 @@ public class Events {
 		String eventType = eventXML.getEventType();
 		if (eventType.equals(Events.SUBSCRIPTION_ORDER)) {
 			return createOrder(eventXML);
+		} else if (eventType.equals(Events.SUBSCRIPTION_CANCEL)) {
+			return cancelOrder(eventXML);
 		}
 		return "Err unknown event type: "+ eventType;
 	}
-	
+
 	private String createOrder(EventXML eventXML) {
 		boolean success = true;
 		String id = eventXML.getEmail();
 		return String.format("<result><success>%b</success><accountIdentifier>%s</accountIdentifier></result>",
+					success, id);
+	}
+	
+	private String cancelOrder(EventXML eventXML) {
+		boolean success = true;
+		String id = eventXML.getEmail();
+		return String.format("<result><success>%b</success><accountIdentifier>%s</accountIdentifier></result>", 
 					success, id);
 	}
 }
