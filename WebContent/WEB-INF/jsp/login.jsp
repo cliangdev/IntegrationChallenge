@@ -13,13 +13,15 @@
 <body>
 
 <h1>Hi, ${user_id}</h1>
+<br/>
+<h1>${err_message}</h1>
 
 <c:url var="logoUrl" value="/resources/openidlogosmall.png" />
 <p><img src="${logoUrl}"></img>
 <c:url var="openIDLoginUrl" value="/j_spring_openid_security_check" />
 <form action="${openIDLoginUrl}" method="post" >
 	<label for="openid_identifier">Login via AppDirect</label>
-	<input id="openid_identifier" type="hidden" name="openid_identifier" value=${openid_url}"/>
+	<input id="openid_identifier" type="hidden" name="openid_identifier" value="${openid_url}" />
 	<input  type="submit" value="Login"/>								
 </form>
 

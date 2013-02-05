@@ -16,22 +16,24 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class LoginLogoutController {
-	//appdirectintegration.cloudfoundry.com/login?error={error}&openid={openid}&accountId={accountIdentifier}
+	//appdirectintegration.cloudfoundry.com/cliang/login?error={error}&openid={openid}&accountId={accountIdentifier}
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView getLoginPage(@RequestParam(value="error", required=false) boolean error,
 			@RequestParam(value="openid", defaultValue="") String openid,
 			@RequestParam(value="accountId", defaultValue="there") String acctid,
 			ModelMap model) {
-
-		if (error == true) {
-			model.put("error", "You have entered an invalid username or password!");
-		} else {
-			model.put("error", "");
-		}
-
+		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("user_id", acctid);
 		mav.addObject("openid_url", openid);
+		
+		if (error || acctid.equals("UNKNOWN")) {
+			mav.addObject("err_message", "Invalid openid! (Try to login via AppDirect)");
+			mav.addObject("user_id", "");
+		} else {
+			mav.addObject("err_message", "You have login successfully!");
+		}
+		
 		return mav;
 	}
 }
