@@ -10,25 +10,30 @@ import com.challenge.event.Events;
 import com.challenge.utils.EventXML;
 
 @Controller
+@RequestMapping("/subscribe")
 public class SubscriptionController {
-	private final static String CREATE = "create";
-	private final static String CANCEL = "cancel";
-	private final static String SSO = "sso";
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public @ResponseBody String subscripe(@RequestParam(value="token", defaultValue="") String token) {
 
-	//appdirectintegration.cloudfoundry.com/cliang/subscription?action=create&token={token}
-	//appdirectintegration.cloudfoundry.com/cliang/subscription?action=cancel&token={token}
-	@RequestMapping(value = "/subscription", method = RequestMethod.GET)
-	public @ResponseBody String subscripe(@RequestParam("action") String action, 
-				@RequestParam(value="token", defaultValue="") String token,
-				@RequestParam(value="openid", defaultValue="") String openid,
-				@RequestParam(value="accountId", defaultValue="") String acctid) {
-		String xml = "<Invalid></Invalid>";
-		if (CREATE.equals(action) || CANCEL.equals(action)) {
-			Events e = new Events();
-			xml = e.FectchEvent(token);
-			xml = e.handleEvent(new EventXML(xml));
-		}
+		String xml = "Err";
+		Events e = new Events();
+		xml = e.FectchEvent(token);
+		xml = e.handleEvent(new EventXML(xml));
 
+		if (xml.startsWith("Err")) xml = "<Err>Please log in AppDirect and subscribe this App.</Err>";
+		return xml;
+	}
+
+	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
+	public @ResponseBody String unsubscripe(@RequestParam(value="token", defaultValue="") String token) {
+		String xml = "Err";
+
+		Events e = new Events();
+		xml = e.FectchEvent(token);
+		xml = e.handleEvent(new EventXML(xml));
+
+		if (xml.startsWith("Err")) xml = "<Err>Please log in AppDirect and unsubscribe this App.</Err>";
 		return xml;
 	} 
+
 }
